@@ -28,18 +28,18 @@ Probar el algoritmo con un conjunto de nodos y distancias reales incluidos en el
 
 🗂️ Estructura del proyecto
 
-01_Opt_Substations/
-├── src/
-│ ├── main.py
-│ └── substation_astar.py
-├── data/
-│ └── nodes_distance.csv
-├── notebooks/
-│ └── main.ipynb
-├── docs/
-│ └── example_network.png (opcional)
-├── requirements.txt
-└── README.md
+01_Opt_Substations/<br>
+├── src/<br>
+│ ├── main.py<br>
+│ └── substation_astar.py<br>
+├── data/<br>
+│ └── nodes_distance.csv<br>
+├── notebooks/<br>
+│ └── main.ipynb<br>
+├── docs/<br>
+│ └── example_network.png (opcional)<br>
+├── requirements.txt<br>
+└── README.md<br>
 
 Descripción:
 
