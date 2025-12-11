@@ -36,18 +36,22 @@ El algoritmo genera automáticamente:
 
 ## 📁 Estructura del repositorio
 
-01_Opt_Substations/<br>
-├── src/<br>
-│ ├── main.py<br>
-│ └── substation_astar.py<br>
-├── data/<br>
-│ └── nodes_distance.csv<br>
-├── notebooks/<br>
-│ └── main.ipynb<br>
-├── docs/<br>
-│ └── example_network.png (opcional)<br>
-├── requirements.txt<br>
-└── README.md<br>
+project/
+│
+├── data/
+│ └── nodes_distance.csv
+│
+├── docs/
+│
+├── results/
+│ └── (aquí se generan los Excel con los resultados)
+│
+├── src/
+│ ├── main.py
+│ └── substation_astar.py
+│
+├── README.md
+└── requirements.txt
 
 Descripción:
 
