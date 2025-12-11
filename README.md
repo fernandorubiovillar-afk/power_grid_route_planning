@@ -83,7 +83,7 @@ El coste real se calcula como:
 
 Desde la raíz del proyecto:
 
-```bash
+
 python src/main.py
 
 El script:
