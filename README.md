@@ -84,7 +84,7 @@ El coste real se calcula como:
 Desde la raíz del proyecto:
 
 ```bash
-python src/main.py
+python src/main.py```
 El script:
 
 Carga los datos desde data/nodes_distance.csv.
