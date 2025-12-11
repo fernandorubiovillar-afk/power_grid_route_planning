@@ -1,32 +1,40 @@
 # power_grid_route_planning
-This scripts is a solution to find an efficient route planning in infrastructure networks is critical for reducing operation and maintenance costs and time.
-🔌 Optimización de Rutas entre Subestaciones mediante A*
+Este proyecto implementa el algoritmo **A\*** para calcular rutas óptimas entre
+subestaciones eléctricas, teniendo en cuenta:
 
-Este proyecto implementa el algoritmo A* para encontrar el camino óptimo entre nodos que representan subestaciones eléctricas conectadas por distancias reales. El objetivo es calcular la ruta de menor coste entre un nodo de inicio y un nodo destino, utilizando información geométrica (heurística admisible) y datos reales de distancia.
+- Distancias reales en kilómetros  
+- Factores de Conservación del Camino (FCC)  
+- Funciones heurísticas específicas para el dominio  
 
-📌 Objetivos del proyecto
+El sistema permite comparar dos heurísticas diferentes y genera trazabilidad
+completa de la búsqueda (valores de `g`, `h`, `f`, orden de expansión y ruta final).
 
-Implementar una clase Substation que gestione:
+---
 
-Coordenadas de cada nodo
+## 🚀 Funcionalidades principales
 
-Cálculo de distancia geométrica (heurística)
+### ✔ Implementación completa del algoritmo A*
+Incluye:
+- Gestión de frontera (open list)
+- Gestión de explorados (closed list)
+- Actualización de caminos más eficientes (path improvement)
+- Reconstrucción de rutas óptimas mediante `came_from`
 
-Evaluación de si un nodo es solución
+### ✔ Dos heurísticas especializadas
+1. **Distancia euclídea × FCC_min**
+2. **Distancia Dijkstra × 2 (en km)**
 
-Implementar una función A_star() capaz de:
+Ambas cumplen admisibilidad y consistencia bajo el modelo planteado.
 
-Expandir nodos sucesores
+### ✔ Exportación de resultados
+El algoritmo genera automáticamente:
+- Los valores de `g`, `h`, `f` para cada nodo
+- El orden de expansión
+- Archivos Excel en la carpeta `results/` para cada heurística
 
-Mantener frontera y nodos explorados
+---
 
-Evaluar coste real + heurístico
-
-Reconstruir el camino óptimo
-
-Probar el algoritmo con un conjunto de nodos y distancias reales incluidos en el dataset.
-
-🗂️ Estructura del proyecto
+## 📁 Estructura del repositorio
 
 01_Opt_Substations/<br>
 ├── src/<br>
@@ -51,68 +59,52 @@ notebooks/ → Notebooks para exploración y pruebas
 
 docs/ → Imágenes o documentación adicional
 
-🚀 Ejecución del algoritmo
+## 🧠 Cómo funciona el modelo de subestaciones
 
-El script principal está en:
+Cada subestación se define por:
+- Nombre del nodo  
+- Coordenadas (x, y)  
+- Conexiones salientes  
+- Distancia y FCC por arco  
 
-src/main.py
+El coste real se calcula como:
 
-Ejecutarlo desde la raíz del proyecto con:
+\[
+\text{coste} = \text{distancia (km)} \times \text{FCC}
+\]
 
+---
+
+## ▶ Ejecución
+
+Desde la raíz del proyecto:
+
+```bash
 python src/main.py
+El script:
 
-El programa imprimirá:
+Carga los datos desde data/nodes_distance.csv.
 
-El camino óptimo
+Ejecuta A* con las dos heurísticas disponibles.
 
-El coste total
+Imprime la ruta óptima y su coste total.
 
-La frontera
+Exporta los resultados en formato Excel a la carpeta results/.
 
-Los nodos explorados
+📦 Dependencias
 
-🧠 Breve explicación del algoritmo A*
+Instalar ejecutando:
 
-A* combina dos valores:
-
-g(n): coste real acumulado desde el inicio
-
-h(n): distancia geométrica al objetivo (heurística)
-
-La función de evaluación es:
-
-f(n) = g(n) + h(n)
-
-Esto permite seleccionar en cada paso el nodo más prometedor, logrando una solución eficiente y óptima.
-
-📊 Dataset utilizado
-
-El archivo:
-
-data/nodes_distance.csv
-
-Incluye:
-
-Nodo de inicio
-
-Nodo de destino
-
-Distancia en km
-
-Factor FCC (coste asociado)
-
-real = dist_km × FCC
-
-Este dataset actúa como grafo dirigido para que A* explore todas las rutas posibles.
-
-📦 Instalación
-
-Crear entorno virtual (opcional):
-python -m venv .venv
-
-Activarlo:
-En Windows:
-..venv\Scripts\activate
-
-Instalar dependencias:
 pip install -r requirements.txt
+
+📘 Estructura del dataset
+
+El archivo nodes_distance.csv debe contener:
+
+| start_node | end_node | dist_km | FCC |
+
+El coste se obtiene multiplicando dist_km × FCC.
+
+👨‍💻 Autor
+
+Fernando Rubio Villar
