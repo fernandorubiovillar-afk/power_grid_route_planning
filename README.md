@@ -36,22 +36,22 @@ El algoritmo genera automáticamente:
 
 ## 📁 Estructura del repositorio
 
-project/
-│
-├── data/
-│ └── nodes_distance.csv
-│
-├── docs/
-│
-├── results/
-│ └── (aquí se generan los Excel con los resultados)
-│
-├── src/
-│ ├── main.py
-│ └── substation_astar.py
-│
-├── README.md
-└── requirements.txt
+project/ <br>
+│<br>
+├── data/<br>
+│ └── nodes_distance.csv<br>
+│<br>
+├── docs/<br>
+│<br>
+├── results/<br>
+│ └── (aquí se generan los Excel con los resultados)<br>
+│<br>
+├── src/<br>
+│ ├── main.py<br>
+│ └── substation_astar.py<br>
+│<br>
+├── README.md<br>
+└── requirements.txt<br>
 
 Descripción:
 
