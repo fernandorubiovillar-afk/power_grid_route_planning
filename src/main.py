@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-from substation_astar_2 import Substation, A_star   # ojo al nombre del fichero
+from substation_astar import Substation, A_star   # ojo al nombre del fichero
 
 # Ruta base del proyecto (carpeta 01_Opt_Substations)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,3 +84,4 @@ df_dij = df_dij.sort_values(
 dijkstra_csv_path = os.path.join(RESULTS_DIR, "astar_dijkstra_fcc_E-A.csv")
 df_dij.to_csv(dijkstra_csv_path, sep=";", decimal=",", index=False, encoding="utf-8-sig")
 print(f"Guardado CSV de heurística Dijkstra×FCC_min en: {dijkstra_csv_path}")
+
