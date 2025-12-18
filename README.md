@@ -1,115 +1,182 @@
 # power_grid_route_planning
-Este proyecto implementa el algoritmo **A\*** para calcular rutas óptimas entre
-subestaciones eléctricas, teniendo en cuenta:
+Este repositorio contiene un framework modular en Python para la resolución y comparación de problemas de camino más corto en grafos dirigidos ponderados, utilizando:
 
-- Distancias reales en kilómetros  
-- Factores de Conservación del Camino (FCC)  
-- Funciones heurísticas específicas para el dominio  
+A* con distintas heurísticas
 
-El sistema permite comparar dos heurísticas diferentes y genera trazabilidad
-completa de la búsqueda (valores de `g`, `h`, `f`, orden de expansión y ruta final).
+Uniform Cost Search (UCS)
 
----
+Dijkstra
 
-## 🚀 Funcionalidades principales
+El objetivo principal es comparar de forma justa:
 
-### ✔ Implementación completa del algoritmo A*
-Incluye:
-- Gestión de frontera (open list)
-- Gestión de explorados (closed list)
-- Actualización de caminos más eficientes (path improvement)
-- Reconstrucción de rutas óptimas mediante `came_from`
+Diferentes heurísticas para A*
 
-### ✔ Dos heurísticas especializadas
-1. **Distancia euclídea × FCC_min**
-2. **Distancia Dijkstra × 2 (en km)**
+Diferentes algoritmos de búsqueda
 
-Ambas cumplen admisibilidad y consistencia bajo el modelo planteado.
+separando claramente la lógica de búsqueda del overhead de visualización y trazado, y permitiendo análisis cuantitativos reproducibles.
 
-### ✔ Exportación de resultados
-El algoritmo genera automáticamente:
-- Los valores de `g`, `h`, `f` para cada nodo
-- El orden de expansión
-- Archivos Excel en la carpeta `results/` para cada heurística
+🚀 Características principales
 
----
+Implementación desde cero de:
 
-## 📁 Estructura del repositorio
+A* (modo completo y modo rápido)
 
-project/ <br>
-│<br>
-├── data/<br>
-│ └── nodes_distance.csv<br>
-│<br>
-├── docs/<br>
-│<br>
-├── results/<br>
-│ └── (aquí se generan los Excel con los resultados)<br>
-│<br>
-├── src/<br>
-│ ├── main.py<br>
-│ └── substation_astar.py<br>
-│<br>
-├── README.md<br>
-└── requirements.txt<br>
+Dijkstra
 
-Descripción:
+Uniform Cost Search (UCS)
 
-src/ → Código fuente del proyecto
+Comparación objetiva basada en métricas:
 
-data/ → Datos de entrada (distancias reales entre nodos)
+Nodos expandidos
 
-notebooks/ → Notebooks para exploración y pruebas
+Tiempo medio de ejecución
 
-docs/ → Imágenes o documentación adicional
+Tamaño máximo de la frontera
 
-## 🧠 Cómo funciona el modelo de subestaciones
+Eficiencia temporal por nodo expandido
 
-Cada subestación se define por:
-- Nombre del nodo  
-- Coordenadas (x, y)  
-- Conexiones salientes  
-- Distancia y FCC por arco  
+Generación automática de:
 
-El coste real se calcula como:
+Benchmarks en CSV/XLSX
 
-\[
-\text{coste} = \text{distancia (km)} \times \text{FCC}
-\]
+Gráficas comparativas
 
----
+Árboles de búsqueda de A* (visualización)
 
-## ▶ Ejecución
+Arquitectura pensada para:
 
-Desde la raíz del proyecto:
+Separar algoritmos, heurísticas, benchmarking y visualización
+
+Evitar sesgos por instrumentación (logging / trazas)
+
+🧠 Diseño clave: A* FULL vs A* FAST
+
+Para garantizar comparaciones justas, se utilizan dos variantes de A*:
+
+🔍 A* FULL
+
+Registra información detallada de:
+
+Expansiones
+
+Estados evaluados
+
+Eventos de decisión
+
+Se utiliza exclusivamente para:
+
+Dibujar árboles de búsqueda
+
+Analizar el proceso de expansión
+
+⚡ A* FAST
+
+No guarda trazas ni eventos
+
+Se utiliza para:
+
+Comparación entre heurísticas
+
+Comparación entre algoritmos
+
+Elimina el overhead de instrumentación y permite medir:
+
+Tiempo real
+
+Eficiencia algorítmica
+
+📂 Estructura del proyecto
+.
+├── data/
+│   └── nodes_distance.csv        # Grafo: arcos, distancias y costes reales
+│
+├── src/
+│   ├── algorithms.py             # A*, A*_fast, Dijkstra, UCS
+│   ├── heuristics.py             # Heurísticas admisibles
+│   ├── benchmark.py              # Lógica de benchmarking
+│   ├── plots.py                  # Generación de gráficas
+│   ├── tree_viz.py               # Visualización de árboles de búsqueda
+│   └── main.py                   # Script principal
+│
+├── results/
+│   ├── heuristics/
+│   │   ├── benchmarks/           # CSV/XLSX por heurística
+│   │   ├── images/               # Gráficas comparativas
+│   │   └── search_trees/         # Árboles de A*
+│   │
+│   └── algorithms/
+│       ├── benchmarks/           # Comparativa A* vs Dijkstra vs UCS
+│       └── images/               # Gráficas comparativas
+│
+└── README.md
+
+📐 Heurísticas implementadas
+
+Todas las heurísticas utilizadas son admisibles.
+
+- Euclídea escalada
+- Manhattan escalada
+- Chebyshev escalada
+
+Escalada análoga a la Manhattan
+
+La constante de escalado garantiza:
+
+Admisibilidad
+
+Comparaciones consistentes entre heurísticas
+
+📊 Métricas de comparación
+
+Para cada caso de prueba se recogen:
+
+expanded_nodes
+
+generated_nodes
+
+max_frontier
+
+exec_time_ms_mean
+
+exec_time_ms_min
+
+ms_per_expanded
+
+total_cost
+
+path_length
+
+La heurística ganadora global se selecciona mediante un sistema de ranking por caso y métrica.
+
+▶️ Ejecución
+
+Desde la carpeta raíz del proyecto:
+
+python -m src.main
 
 
-python src/main.py
+Esto genera automáticamente:
 
-El script:
+Benchmarks por heurística
 
-Carga los datos desde data/nodes_distance.csv.
+Árboles de búsqueda (A*)
 
-Ejecuta A* con las dos heurísticas disponibles.
+Gráficas comparativas
 
-Imprime la ruta óptima y su coste total.
+Comparación final entre algoritmos
 
-Exporta los resultados en formato Excel a la carpeta results/.
+🧪 Casos de prueba
 
-📦 Dependencias
+Los casos se definen directamente en main.py:
 
-Instalar ejecutando:
+cases = [
+    ("A", "H"),
+    ("D", "A"),
+    ("C", "G"),
+    ("E", "A"),
+]
 
-pip install -r requirements.txt
-
-📘 Estructura del dataset
-
-El archivo nodes_distance.csv debe contener:
-
-| start_node | end_node | dist_km | FCC |
-
-El coste se obtiene multiplicando dist_km × FCC.
-
+El framework es fácilmente extensible a nuevos grafos y conjuntos de casos.
 👨‍💻 Autor
 
 Fernando Rubio Villar
