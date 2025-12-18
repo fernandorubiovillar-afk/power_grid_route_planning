@@ -81,6 +81,67 @@ Para garantizar comparaciones justas, se utilizan dos variantes de A*.
 │ └── images/<br> 
 │<br> 
 └── README.md<br> 
+## Heurísticas implementadas
+
+Todas las heurísticas utilizadas son admisibles.
+
+- Euclídea escalada  
+  Distancia euclídea multiplicada por el FCC mínimo
+
+- Manhattan escalada  
+  Escalada mediante la constante:
+
+  k = min_{(u,v) in E} c(u,v) / d_Manhattan(u,v)
+
+- Chebyshev escalada  
+  Escalada análoga a la Manhattan
+
+El escalado garantiza:
+- Admisibilidad
+- Comparaciones consistentes entre heurísticas
+
+---
+
+## Métricas de comparación
+
+Para cada caso de prueba se recogen:
+
+- expanded_nodes
+- generated_nodes
+- max_frontier
+- exec_time_ms_mean
+- exec_time_ms_min
+- ms_per_expanded
+- total_cost
+- path_length
+
+La heurística ganadora global se selecciona mediante un sistema de ranking por caso y métrica.
+
+---
+
+## Ejecución
+
+Desde la carpeta raíz del proyecto:
+
+```bash
+python -m src.main
+
+Esto genera automáticamente:
+
+- Benchmarks por heurística
+
+- Árboles de búsqueda (A*)
+
+- Gráficas comparativas
+
+## Casos de prueba
+Los casos se definen directamente en `main.py`
+cases = [
+    ("A", "H"),
+    ("D", "A"),
+    ("C", "G"),
+    ("E", "A"),
+]
 
 El framework es fácilmente extensible a nuevos grafos y conjuntos de casos.
 👨‍💻 Autor
